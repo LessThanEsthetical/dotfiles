@@ -1,1 +1,1 @@
-../.config/nvim/init.lua
+vim.wo.number = true
