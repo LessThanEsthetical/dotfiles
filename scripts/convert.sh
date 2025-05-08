@@ -3,16 +3,16 @@
 # This script made to "modernize" old videos recorded with digital camera
 # Just put it with videos at same directory and run
 
-# Check if it's run by root. Don't allow root 
+# Check if it's run by root. Don't allow root for safety
 if [[ "$EUID" = 0 ]]; then
-	echo -e "Hey, it's too dangerous to run this as root, don't you think?\nPlease run as normal user."
+	echo -n -e "Hey, it's not a good idea to run this as a root, don't you think?\nPlease run as a normal user"
 	exit 1
 fi
 
 # Check if FFmpeg is installed
 if ! command -v ffmpeg 2>&1 >/dev/null
 then
-    echo "Install FFmpeg first" 
+    echo "Please, install FFmpeg first" 
     exit 1
 fi
 
@@ -20,8 +20,8 @@ shopt -s nocaseglob
 
 mkdir ./new
 
-# In case of missing certain video files, FFmpeg output an error, just ignore it
 for i in *.{mpg,avi,vob,mov,mp4}; do 
+	[ -e "$i" ] || continue
 
 	# Get sample rate and bitrate of audio streams
 	# And get framerate
