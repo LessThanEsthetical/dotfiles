@@ -77,9 +77,9 @@ source $ZSH/oh-my-zsh.sh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 alias shutdown="shutdown -P 0"
-alias stfu="shutdown -P 0"
+alias shut="shutdown -P 0"
 alias ls="eza --color=always"
-alias sex="fastfetch"
+alias info="fastfetch"
 #alias ssh="kitten ssh"
 eval $(ssh-agent -s)
 #eval $(zoxide init zsh)
