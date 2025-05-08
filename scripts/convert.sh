@@ -18,7 +18,7 @@ fi
 
 shopt -s nocaseglob
 
-mkdir ./new
+mkdir ./new 2>/dev/null
 
 for i in *.{mpg,avi,vob,mov,mp4}; do 
 	[ -e "$i" ] || continue
