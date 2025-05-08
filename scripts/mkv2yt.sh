@@ -23,7 +23,7 @@ if [[ $@ == "" ]]; then
 	echo -n -e "You can also use this script to pass videos automatically ($0 video1.mkv video2.mkv) \n"
 	read -e -p "Provide files: " videos
 
-	# If still no videos, exit script
+	# If still no video(s) provided, exit script
 	if [[ $videos == "" ]]; then
 		echo "Please provide files"
 		exit 1

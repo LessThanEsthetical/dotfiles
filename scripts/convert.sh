@@ -5,19 +5,21 @@
 
 # Check if it's run by root. Don't allow root for safety
 if [[ "$EUID" = 0 ]]; then
-	echo -n -e "Hey, it's not a good idea to run this as a root, don't you think?\nPlease run as a normal user"
+	echo -n -e "Hey, it's not a good idea to run this as a root, don't you think?\nPlease run as a normal user."
 	exit 1
 fi
 
 # Check if FFmpeg is installed
 if ! command -v ffmpeg 2>&1 >/dev/null
 then
-    echo "Please, install FFmpeg first" 
+    echo "Please, install FFmpeg first."
     exit 1
 fi
 
+# Some videofiles contain capitalized extensions (.VOB, .MOV, .AVI etc.)
 shopt -s nocaseglob
 
+# Make new folder in case of missing one 
 mkdir ./new 2>/dev/null
 
 for i in *.{mpg,avi,vob,mov,mp4}; do 
@@ -39,7 +41,7 @@ for i in *.{mpg,avi,vob,mov,mp4}; do
 		fi
 	fi
 	
-	# Make framerate stable 30 or 60fps
+	# Make framerate stable either 30fps or 60fps
 	if [[ "$framerate" == "30000/1001" ]]; then
 		frames=",fps=fps=30"
 	elif [[ "$framerate" == "60000/1001" ]]; then
@@ -48,7 +50,7 @@ for i in *.{mpg,avi,vob,mov,mp4}; do
 		frames=""
 	fi
 
-	# Actual operation
+	# Perform FFmpeg 'operation'
 	ffmpeg -hide_banner -i "$i" \
 		-movflags +faststart \
 		-c:v libx264 -profile:v High -crf 23 -preset veryslow \
@@ -60,6 +62,5 @@ done
 
 shopt -u nocaseglob
 
-# Inform of results
-echo ""
-echo "Done converting $(find ./new -type f | wc -l) out of $(find ./ -type f | wc -l) files."
+# Provide simple results
+echo -e "Done converting $(find ./new -type f | wc -l) out of $(find ./ -type f | wc -l) files."
