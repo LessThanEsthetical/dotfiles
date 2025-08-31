@@ -10,7 +10,7 @@ compinit
 HISTFILE=~/.zsh_history
 HISTSIZE=2000
 SAVEHIST=2000
-setopt autocd extendedglob nomatch notify
+setopt autocd extendedglob nomatch notify hist_ignore_all_dups
 unsetopt beep
 #bindkey -v
 # End of lines configured by zsh-newuser-install
@@ -23,17 +23,17 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-PS1="%F{cyan}%~%f $ %F{green}>>%f "
-
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+PS1="%F{cyan}%~%f $ %F{green}>>%f "
+
+eval "$(ssh-agent -s)"
+eval "$(zoxide init zsh)"
 
 alias shutdown="shutdown -P 0"
 alias stfu="shutdown -P 0"
 alias ls="eza --color=always"
-alias sex="fastfetch"
-alias nya="paru"
-alias mpv-audio="mpv --vo=null -ytdl-format=ba"
-
-eval "$(ssh-agent -s)"
-eval "$(zoxide init zsh)"
+alias fetch="fastfetch"
+alias mpv-audio="mpv --vo=null --ytdl-format=ba"
+alias upd="paru -Syu --noconfirm && flatpak update -y && ~/updateFF.sh && shutdown -P 0"
